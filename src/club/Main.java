@@ -32,7 +32,7 @@ public class Main {
                         System.out.println("Ingrese el numero de cedula: ");
                         pCedula = scan.next();
                         try {
-                            if(Character.isDigit(Integer.parseInt(pCedula)));{
+                            if(Character.isDigit((char)Float.parseFloat(pCedula)));{
                                 break;
                             }
                         }catch (Exception e){
