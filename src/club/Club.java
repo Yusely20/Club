@@ -76,9 +76,7 @@ public class Club
             Socio nuevoSocio = new Socio( pCedula, pNombre, pTipo );
             // Se agrega el nuevo socio al club
             socios.add( nuevoSocio );
-            for(Socio socio: darSocios()){
-                System.out.println(socio+"\n");
-            }
+
         }
         else
         {
