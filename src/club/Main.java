@@ -7,8 +7,7 @@ import club.Socio.Tipo;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) throws Exception {
-
-        Scanner sc = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         int op;
         Club c = new Club();
         c.afiliarSocio("1727509513", "Maria", Tipo.REGULAR);
@@ -16,6 +15,9 @@ public class Main {
         c.afiliarSocio("1756645832","Giselle",Tipo.VIP);
 
         do{
+            String pCedula;
+            String pNombre;
+            double pValor = 0;
             System.out.println("1. Afiliar un socio al club.");
             System.out.println("2. Registrar una persona autorizada por un socio.");
             System.out.println("3. Pagar una factura.");
@@ -23,62 +25,67 @@ public class Main {
             System.out.println("5. Aumentar fondos de la cuenta de un socio");
             System.out.println("6. Salir");
             System.out.print("Ingrese una opcion: ");
-            op = Integer.parseInt(sc.next());
+            op = Integer.parseInt(scan.next());
             switch (op){
-                case 1:{
-                    System.out.println("---Ingreso de Datos del Socio---");
-                    System.out.println("Ingrese el numero de cedula: ");
-                    String pCedula = sc.next();
+                case 1:
+                    do{
+                        System.out.println("Ingrese el numero de cedula: ");
+                        pCedula = scan.next();
+                        try {
+                            if(Character.isDigit(Integer.parseInt(pCedula)));{
+                                break;
+                            }
+                        }catch (Exception e){
+                            System.out.println("Ingrese solo numeros en la cedula!!");
+                        }
+                    }while(true);
                     System.out.println("Ingrese el nombre: ");
-                    String pNombre = sc.next();
-                    Tipo pTipo = tipo(sc);
+                    pNombre = scan.next();
+                    Tipo pTipo = tipo(scan);
                     try{
                         c.afiliarSocio(pCedula,pNombre,pTipo);
                     } catch (Exception e) {
-                        System.out.println("Error al afiliar al socio: " + e.getMessage());
+                        System.out.println("No se pudo afiliar al socio: " + e.getMessage());
                     }
-                }break;
-                case 2:{
+                    break;
+                case 2:
                     System.out.println("Ingrese el numero de cedula: ");
-                    String pCedula = sc.next();
+                    pCedula = scan.next();
                     System.out.println("Ingrese el nombre de la persona autorizada: ");
-                    String pNombre =  sc.next();
+                    pNombre =  scan.next();
                     try {
                         c.agregarAutorizadoSocio(pCedula,pNombre);
                         System.out.println("Registro exitoso");
                     } catch (Exception e){
                         System.out.println("Error de registro de persona autorizada: " + e.getMessage());
                     }
-
-                }break;
-                case 3:{
+                    break;
+                case 3:
                     System.out.println("Ingrese el numero de cedula: ");
-                    String pCedula = sc.next();
+                    pCedula = scan.next();
                     System.out.println("Ingrese el indice de Factura: ");
-                    int pIndice = sc.nextInt();
+                    int pIndice = scan.nextInt();
                     try{
                         c.pagarFacturaSocio(pCedula,pIndice);
                         System.out.println("Pago exitoso");
                     }catch (Exception e){
                         System.out.println("Error de pago: " +  e.getMessage());
                     }
-
-                }break;
-                case 4:{
+                    break;
+                case 4:
                     System.out.println("Ingrese el numero de cedula: ");
-                    String pCedula = sc.next();
+                    pCedula = scan.next();
                     System.out.println("Ingrese el nombre de la persona que realizo el consumo: ");
-                    String pNombreCliente = sc.next();
+                    String pNombreCliente = scan.next();
                     System.out.println("Ingrese el concepto del consumo: ");
-                    String pConcepto = sc.next();
-                    double pValor = 0;
+                    String pConcepto = scan.next();
                     try {
                         System.out.println("Ingrese el valor del consumo: ");
-                        pValor = sc.nextDouble();
-                        break;
+                        pValor = scan.nextDouble();
                     }catch (InputMismatchException ime){
                         System.out.println("Valor invalido, se espera un double: " + ime.getMessage());
-                        sc.next();
+                        scan.next();
+                        pValor = 0;
                     }
                     try {
                         c.registrarConsumo(pCedula, pNombreCliente, pConcepto, pValor);
@@ -87,42 +94,36 @@ public class Main {
                     } catch (Exception e) {
                         System.out.println("Error al registrar el consumo: " + e.getMessage());
                     }
-
-                }break;
-                case 5:{
+                    break;
+                case 5:
                     System.out.println("Ingrese el numero de cedula: ");
-                    String pCedula = sc.next();
+                    pCedula = scan.next();
                     System.out.println("Ingrese el valor a aumentar: ");
-                    double pValor = sc.nextDouble();
+                    pValor = scan.nextDouble();
                     try {
                         c.aumentarFondosSocio(pCedula, pValor);
                         System.out.println("Aumento exitoso.");
                     } catch (Exception e) {
                         System.out.println("Error al aumentar los fondos: " + e.getMessage());
                     }
-
-                }break;
-                case 6:{
+                    break;
+                case 6:
                     System.out.println("Gracias!");
-                }break;
+                break;
                 default:
                     System.out.println("opcion invalida");
             }
-
         }while(op!=6);
-
-
     }
-
-    public static Tipo tipo (Scanner sc){
+    public static Tipo tipo (Scanner scan){
         int tipoNum;
-        Tipo pTipo = null;
+        Tipo pTipo;
       do{
           try{
               System.out.println("Ingrese el numero tipo: ");
               System.out.println("1. VIP");
               System.out.println("2. REGULAR");
-              tipoNum = sc.nextInt();
+              tipoNum = scan.nextInt();
               if (tipoNum == 1 ) {
                   pTipo = Tipo.VIP;
                   break;
@@ -134,7 +135,7 @@ public class Main {
               }
           }catch (InputMismatchException ime){
               System.out.println("Inválido. Ingrese un numero entero");
-              sc.next();
+              scan.next();
           }
       }while (true);
       return pTipo;

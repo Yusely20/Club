@@ -63,7 +63,6 @@ public class Club
      */
     public void afiliarSocio( String pCedula, String pNombre, Tipo pTipo ) throws Exception
     {
-
         // Revisar que no haya ya un socio con la misma c�dula
         Socio s = buscarSocio( pCedula );
         if( pTipo == Tipo.VIP && contarSociosVIP( ) == MAXIMO_VIP )
@@ -77,10 +76,12 @@ public class Club
             Socio nuevoSocio = new Socio( pCedula, pNombre, pTipo );
             // Se agrega el nuevo socio al club
             socios.add( nuevoSocio );
+            for(Socio socio: darSocios()){
+                System.out.println(socio+"\n");
+            }
         }
         else
         {
-
             throw new Exception("El socio ya existe" );
         }
     }
