@@ -44,12 +44,13 @@ public class Main {
                     Tipo pTipo = tipo(scan);
                     try{
                         c.afiliarSocio(pCedula,pNombre,pTipo);
+                        System.out.println("Afiliación exitosa!");
                     } catch (Exception e) {
                         System.out.println("No se pudo afiliar al socio: " + e.getMessage());
                     }
                     break;
                 case 2:
-                    System.out.println("Ingrese el numero de cedula: ");
+                    System.out.println("Ingrese el numero de cedula del socio: ");
                     pCedula = scan.next();
                     System.out.println("Ingrese el nombre de la persona autorizada: ");
                     pNombre =  scan.next();
