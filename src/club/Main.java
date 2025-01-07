@@ -26,24 +26,25 @@ public class Main {
             System.out.println("6. Salir");
             System.out.print("Ingrese una opcion: ");
             op = Integer.parseInt(scan.next());
-            switch (op){
+            switch (op) {
                 case 1:
-                    do{
+                    do {
                         System.out.println("Ingrese el numero de cedula: ");
                         pCedula = scan.next();
                         try {
-                            if(Character.isDigit((char)Float.parseFloat(pCedula)));{
+                            if (Character.isDigit((char) Float.parseFloat(pCedula))) ;
+                            {
                                 break;
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             System.out.println("Ingrese solo numeros en la cedula!!");
                         }
-                    }while(true);
+                    } while (true);
                     System.out.println("Ingrese el nombre: ");
                     pNombre = scan.next();
                     Tipo pTipo = tipo(scan);
-                    try{
-                        c.afiliarSocio(pCedula,pNombre,pTipo);
+                    try {
+                        c.afiliarSocio(pCedula, pNombre, pTipo);
                         System.out.println("Afiliación exitosa!");
                     } catch (Exception e) {
                         System.out.println("No se pudo afiliar al socio: " + e.getMessage());
@@ -53,11 +54,11 @@ public class Main {
                     System.out.println("Ingrese el numero de cedula del socio: ");
                     pCedula = scan.next();
                     System.out.println("Ingrese el nombre de la persona autorizada: ");
-                    pNombre =  scan.next();
+                    pNombre = scan.next();
                     try {
-                        c.agregarAutorizadoSocio(pCedula,pNombre);
+                        c.agregarAutorizadoSocio(pCedula, pNombre);
                         System.out.println("Registro exitoso");
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Error de registro de persona autorizada: " + e.getMessage());
                     }
                     break;
@@ -66,9 +67,11 @@ public class Main {
                     pCedula = scan.next();
                     System.out.println("Ingrese el indice de Factura: ");
                     int pIndice = scan.nextInt();
-                    try{
-                        c.pagarFacturaSocio(pCedula,pIndice);
+                    try {
+                        c.pagarFacturaSocio(pCedula, pIndice);
                         System.out.println("Pago exitoso");
+                    }catch (IndexOutOfBoundsException iobe){
+                        System.out.println("No existe ninguna factura");
                     }catch (Exception e){
                         System.out.println("Error de pago: " +  e.getMessage());
                     }
